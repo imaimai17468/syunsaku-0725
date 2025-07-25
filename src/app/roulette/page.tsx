@@ -197,16 +197,16 @@ export default function RoulettePage() {
 	);
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4">
-			<div className="mx-auto max-w-6xl">
+		<div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-4">
+			<div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
 				{/* ヘッダー */}
-				<div className="mb-8 text-center">
-					<h1 className="mb-2 flex items-center justify-center gap-3 font-bold text-4xl text-white">
-						<Dices className="h-10 w-10 text-amber-400" />
-						デイリールーレット
-						<Dices className="h-10 w-10 text-amber-400" />
+				<div className="mb-6 text-center sm:mb-8">
+					<h1 className="mb-2 flex flex-col items-center gap-2 font-bold text-3xl text-white sm:flex-row sm:justify-center sm:gap-3 sm:text-4xl">
+						<Dices className="h-8 w-8 text-amber-400 sm:h-10 sm:w-10" />
+						<span>デイリールーレット</span>
+						<Dices className="hidden text-amber-400 sm:block sm:h-10 sm:w-10" />
 					</h1>
-					<p className="text-slate-400">
+					<p className="text-slate-400 text-sm sm:text-base">
 						1日1回、運命の輪を回して豪華報酬をゲット！
 					</p>
 				</div>
@@ -223,13 +223,17 @@ export default function RoulettePage() {
 				)}
 
 				{/* メインゲームエリア */}
-				<div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+				<div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8">
 					{/* ルーレットホイール */}
 					<div className="lg:col-span-2">
 						<RPGCard className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 text-center">
 							<div className="mb-4">
-								<h2 className="font-bold text-2xl text-amber-400">運命の輪</h2>
-								<p className="text-slate-400 text-sm">何が出るかはお楽しみ！</p>
+								<h2 className="font-bold text-amber-400 text-xl sm:text-2xl">
+									運命の輪
+								</h2>
+								<p className="text-slate-400 text-xs sm:text-sm">
+									何が出るかはお楽しみ！
+								</p>
 							</div>
 
 							<RouletteWheel

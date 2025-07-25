@@ -32,27 +32,27 @@ export default async function Home() {
 	const nextStreakReward = getNextStreakReward(progress.loginStreak);
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4">
-			<div className="mx-auto max-w-7xl">
+		<div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-4">
+			<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 				{/* ヘッダー */}
-				<div className="mb-8 text-center">
-					<h1 className="mb-2 font-bold text-4xl text-white">
+				<div className="mb-6 text-center sm:mb-8">
+					<h1 className="mb-2 font-bold text-3xl text-white sm:text-4xl">
 						デイリーリワード
 					</h1>
-					<p className="text-slate-400">
+					<p className="text-slate-400 text-sm sm:text-base">
 						毎日ログインして、豪華報酬をゲットしよう！
 					</p>
 				</div>
 
 				{/* 連続ログイン情報 */}
-				<RPGCard className="mb-8 border-amber-500/30 bg-gradient-to-br from-amber-900/20 to-amber-800/20">
-					<div className="flex items-center justify-between">
-						<div>
-							<h2 className="mb-2 flex items-center gap-2 font-bold text-2xl text-amber-400">
-								<Calendar className="h-6 w-6" />
+				<RPGCard className="mb-6 border-amber-500/30 bg-gradient-to-br from-amber-900/20 to-amber-800/20 sm:mb-8">
+					<div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
+						<div className="text-center sm:text-left">
+							<h2 className="mb-2 flex items-center justify-center gap-2 font-bold text-amber-400 text-xl sm:justify-start sm:text-2xl">
+								<Calendar className="h-5 w-5 sm:h-6 sm:w-6" />
 								連続ログイン
 							</h2>
-							<p className="mb-4 text-slate-300">
+							<p className="text-slate-300 text-sm sm:mb-4 sm:text-base">
 								{progress.loginStreak}日連続でログイン中！
 							</p>
 						</div>
@@ -86,9 +86,11 @@ export default async function Home() {
 				</RPGCard>
 
 				{/* 今日の進捗状況 */}
-				<div className="mb-8">
-					<h2 className="mb-4 font-bold text-2xl text-white">今日の進捗</h2>
-					<div className="grid gap-4 md:grid-cols-3">
+				<div className="mb-6 sm:mb-8">
+					<h2 className="mb-4 font-bold text-white text-xl sm:text-2xl">
+						今日の進捗
+					</h2>
+					<div className="grid gap-3 sm:gap-4 md:grid-cols-3">
 						{/* デイリーログイン */}
 						<RPGCard
 							className={
@@ -167,9 +169,11 @@ export default async function Home() {
 				</div>
 
 				{/* ゲームメニュー */}
-				<div className="mb-8">
-					<h2 className="mb-4 font-bold text-2xl text-white">ゲームメニュー</h2>
-					<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+				<div className="mb-6 sm:mb-8">
+					<h2 className="mb-4 font-bold text-white text-xl sm:text-2xl">
+						ゲームメニュー
+					</h2>
+					<div className="grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
 						<Link
 							href="/daily-login"
 							className={progress.dailyLogin ? "pointer-events-none" : ""}
@@ -222,7 +226,7 @@ export default async function Home() {
 				</div>
 
 				{/* その他のメニュー */}
-				<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+				<div className="grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
 					<Link href="/profile">
 						<GameCard
 							icon={<User className="h-6 w-6" />}

@@ -145,13 +145,13 @@ export default function DailyLoginPage() {
 	}
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4">
-			<div className="mx-auto max-w-4xl">
-				<div className="mb-8 text-center">
-					<h1 className="mb-2 font-bold text-4xl text-white">
+		<div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-4">
+			<div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+				<div className="mb-6 text-center sm:mb-8">
+					<h1 className="mb-2 font-bold text-3xl text-white sm:text-4xl">
 						Daily Login Rewards
 					</h1>
-					<p className="text-slate-400">
+					<p className="text-slate-400 text-sm sm:text-base">
 						Keep your streak alive and earn amazing rewards!
 					</p>
 				</div>
