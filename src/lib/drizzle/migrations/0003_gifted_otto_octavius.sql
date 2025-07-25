@@ -1,0 +1,2 @@
+ALTER TABLE "daily_activities" DROP CONSTRAINT "daily_activities_user_id_activity_date_unique";--> statement-breakpoint
+ALTER TABLE "user_achievements" DROP CONSTRAINT "user_achievements_user_id_achievement_id_unique";

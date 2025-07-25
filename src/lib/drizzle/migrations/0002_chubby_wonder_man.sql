@@ -1,0 +1,2 @@
+ALTER TABLE "daily_activities" ADD CONSTRAINT "daily_activities_user_id_activity_date_unique" UNIQUE("user_id","activity_date");--> statement-breakpoint
+ALTER TABLE "user_achievements" ADD CONSTRAINT "user_achievements_user_id_achievement_id_unique" UNIQUE("user_id","achievement_id");

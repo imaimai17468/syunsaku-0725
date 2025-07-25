@@ -14,6 +14,282 @@ export type Database = {
 	};
 	public: {
 		Tables: {
+			achievements: {
+				Row: {
+					condition_type: string;
+					condition_value: number;
+					created_at: string;
+					description: string | null;
+					icon_url: string | null;
+					id: string;
+					is_active: boolean;
+					name: string;
+					reward_exp: number;
+				};
+				Insert: {
+					condition_type: string;
+					condition_value: number;
+					created_at?: string;
+					description?: string | null;
+					icon_url?: string | null;
+					id?: string;
+					is_active?: boolean;
+					name: string;
+					reward_exp?: number;
+				};
+				Update: {
+					condition_type?: string;
+					condition_value?: number;
+					created_at?: string;
+					description?: string | null;
+					icon_url?: string | null;
+					id?: string;
+					is_active?: boolean;
+					name?: string;
+					reward_exp?: number;
+				};
+				Relationships: [];
+			};
+			daily_activities: {
+				Row: {
+					activity_date: string;
+					created_at: string;
+					id: string;
+					login_count: number;
+					mini_game_completed: boolean;
+					mini_game_score: number;
+					roulette_completed: boolean;
+					updated_at: string;
+					user_id: string;
+				};
+				Insert: {
+					activity_date: string;
+					created_at?: string;
+					id?: string;
+					login_count?: number;
+					mini_game_completed?: boolean;
+					mini_game_score?: number;
+					roulette_completed?: boolean;
+					updated_at?: string;
+					user_id: string;
+				};
+				Update: {
+					activity_date?: string;
+					created_at?: string;
+					id?: string;
+					login_count?: number;
+					mini_game_completed?: boolean;
+					mini_game_score?: number;
+					roulette_completed?: boolean;
+					updated_at?: string;
+					user_id?: string;
+				};
+				Relationships: [
+					{
+						foreignKeyName: "daily_activities_user_id_users_id_fk";
+						columns: ["user_id"];
+						isOneToOne: false;
+						referencedRelation: "users";
+						referencedColumns: ["id"];
+					},
+				];
+			};
+			login_streaks: {
+				Row: {
+					created_at: string;
+					current_streak: number;
+					id: string;
+					last_login_date: string | null;
+					longest_streak: number;
+					total_login_days: number;
+					updated_at: string;
+					user_id: string;
+				};
+				Insert: {
+					created_at?: string;
+					current_streak?: number;
+					id?: string;
+					last_login_date?: string | null;
+					longest_streak?: number;
+					total_login_days?: number;
+					updated_at?: string;
+					user_id: string;
+				};
+				Update: {
+					created_at?: string;
+					current_streak?: number;
+					id?: string;
+					last_login_date?: string | null;
+					longest_streak?: number;
+					total_login_days?: number;
+					updated_at?: string;
+					user_id?: string;
+				};
+				Relationships: [
+					{
+						foreignKeyName: "login_streaks_user_id_users_id_fk";
+						columns: ["user_id"];
+						isOneToOne: true;
+						referencedRelation: "users";
+						referencedColumns: ["id"];
+					},
+				];
+			};
+			reward_items: {
+				Row: {
+					created_at: string;
+					description: string | null;
+					icon_url: string | null;
+					id: string;
+					is_active: boolean;
+					item_type: string;
+					name: string;
+					rarity: string;
+					value: number;
+				};
+				Insert: {
+					created_at?: string;
+					description?: string | null;
+					icon_url?: string | null;
+					id?: string;
+					is_active?: boolean;
+					item_type?: string;
+					name: string;
+					rarity?: string;
+					value?: number;
+				};
+				Update: {
+					created_at?: string;
+					description?: string | null;
+					icon_url?: string | null;
+					id?: string;
+					is_active?: boolean;
+					item_type?: string;
+					name?: string;
+					rarity?: string;
+					value?: number;
+				};
+				Relationships: [];
+			};
+			user_achievements: {
+				Row: {
+					achieved_at: string;
+					achievement_id: string;
+					id: string;
+					user_id: string;
+				};
+				Insert: {
+					achieved_at?: string;
+					achievement_id: string;
+					id?: string;
+					user_id: string;
+				};
+				Update: {
+					achieved_at?: string;
+					achievement_id?: string;
+					id?: string;
+					user_id?: string;
+				};
+				Relationships: [
+					{
+						foreignKeyName: "user_achievements_achievement_id_achievements_id_fk";
+						columns: ["achievement_id"];
+						isOneToOne: false;
+						referencedRelation: "achievements";
+						referencedColumns: ["id"];
+					},
+					{
+						foreignKeyName: "user_achievements_user_id_users_id_fk";
+						columns: ["user_id"];
+						isOneToOne: false;
+						referencedRelation: "users";
+						referencedColumns: ["id"];
+					},
+				];
+			};
+			user_inventory: {
+				Row: {
+					acquired_at: string;
+					id: string;
+					is_used: boolean;
+					quantity: number;
+					reward_item_id: string;
+					used_at: string | null;
+					user_id: string;
+				};
+				Insert: {
+					acquired_at?: string;
+					id?: string;
+					is_used?: boolean;
+					quantity?: number;
+					reward_item_id: string;
+					used_at?: string | null;
+					user_id: string;
+				};
+				Update: {
+					acquired_at?: string;
+					id?: string;
+					is_used?: boolean;
+					quantity?: number;
+					reward_item_id?: string;
+					used_at?: string | null;
+					user_id?: string;
+				};
+				Relationships: [
+					{
+						foreignKeyName: "user_inventory_reward_item_id_reward_items_id_fk";
+						columns: ["reward_item_id"];
+						isOneToOne: false;
+						referencedRelation: "reward_items";
+						referencedColumns: ["id"];
+					},
+					{
+						foreignKeyName: "user_inventory_user_id_users_id_fk";
+						columns: ["user_id"];
+						isOneToOne: false;
+						referencedRelation: "users";
+						referencedColumns: ["id"];
+					},
+				];
+			};
+			user_levels: {
+				Row: {
+					created_at: string;
+					current_exp: number;
+					current_level: number;
+					id: string;
+					total_exp: number;
+					updated_at: string;
+					user_id: string;
+				};
+				Insert: {
+					created_at?: string;
+					current_exp?: number;
+					current_level?: number;
+					id?: string;
+					total_exp?: number;
+					updated_at?: string;
+					user_id: string;
+				};
+				Update: {
+					created_at?: string;
+					current_exp?: number;
+					current_level?: number;
+					id?: string;
+					total_exp?: number;
+					updated_at?: string;
+					user_id?: string;
+				};
+				Relationships: [
+					{
+						foreignKeyName: "user_levels_user_id_users_id_fk";
+						columns: ["user_id"];
+						isOneToOne: true;
+						referencedRelation: "users";
+						referencedColumns: ["id"];
+					},
+				];
+			};
 			users: {
 				Row: {
 					avatar_url: string | null;
