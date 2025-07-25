@@ -3,6 +3,7 @@
 import { Clock, Loader2, RotateCcw, Star } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { getRouletteStatus, spinRouletteAction } from "@/app/actions/roulette";
+import { LevelUpEffect } from "@/components/features/level-up/LevelUpEffect";
 import { RouletteResultModal } from "@/components/features/roulette/RouletteResultModal";
 import { RouletteWheel } from "@/components/features/roulette/RouletteWheel";
 import { GameButton } from "@/components/shared/GameButton";
@@ -21,10 +22,21 @@ interface SpinResult {
 	reward: import("@/lib/roulette/roulette-engine").RouletteReward;
 	spinAngle: number;
 	spinDuration: number;
-	levelUp?: {
-		newLevel: number;
-		leveledUp: boolean;
-	};
+	levelUp?:
+		| {
+				previousLevel: number;
+				currentLevel: number;
+				rewards: Array<{
+					level: number;
+					rewardType: "item" | "achievement" | "unlock";
+					rewardName: string;
+					rewardDescription?: string;
+				}>;
+		  }
+		| {
+				newLevel: number;
+				leveledUp: boolean;
+		  };
 }
 
 export default function RoulettePage() {
@@ -34,6 +46,7 @@ export default function RoulettePage() {
 	const [error, setError] = useState<string | null>(null);
 	const [showResultModal, setShowResultModal] = useState(false);
 	const [spinResult, setSpinResult] = useState<SpinResult | null>(null);
+	const [showLevelUpEffect, setShowLevelUpEffect] = useState(false);
 
 	const rewards = sortRewardsByAngle(DEFAULT_ROULETTE_REWARDS);
 
@@ -91,6 +104,12 @@ export default function RoulettePage() {
 		setSpinning(false);
 		if (spinResult) {
 			setShowResultModal(true);
+			// レベルアップがあった場合は、モーダルを閉じた後にエフェクトを表示
+			if (spinResult.levelUp) {
+				setTimeout(() => {
+					setShowLevelUpEffect(true);
+				}, 500);
+			}
 		}
 		fetchStatus(); // Refresh status
 	};
@@ -245,9 +264,29 @@ export default function RoulettePage() {
 						isOpen={showResultModal}
 						onClose={handleCloseModal}
 						reward={spinResult.reward}
-						levelUp={spinResult.levelUp}
+						levelUp={
+							spinResult.levelUp && "currentLevel" in spinResult.levelUp
+								? {
+										newLevel: spinResult.levelUp.currentLevel,
+										leveledUp: true,
+									}
+								: undefined
+						}
 					/>
 				)}
+
+				{/* Level Up Effect */}
+				{showLevelUpEffect &&
+					spinResult?.levelUp &&
+					"previousLevel" in spinResult.levelUp && (
+						<LevelUpEffect
+							isOpen={showLevelUpEffect}
+							onClose={() => setShowLevelUpEffect(false)}
+							previousLevel={spinResult.levelUp.previousLevel}
+							currentLevel={spinResult.levelUp.currentLevel}
+							rewards={spinResult.levelUp.rewards}
+						/>
+					)}
 			</div>
 		</div>
 	);

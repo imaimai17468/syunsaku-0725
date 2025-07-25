@@ -29,10 +29,21 @@ interface LoginBonusModalProps {
 		streakBroken: boolean;
 		bonusMultiplier: number;
 	};
-	levelUp?: {
-		newLevel: number;
-		leveledUp: boolean;
-	};
+	levelUp?:
+		| {
+				previousLevel: number;
+				currentLevel: number;
+				rewards: Array<{
+					level: number;
+					rewardType: string;
+					rewardName: string;
+					rewardDescription?: string;
+				}>;
+		  }
+		| {
+				newLevel: number;
+				leveledUp: boolean;
+		  };
 }
 
 export function LoginBonusModal({
@@ -91,7 +102,7 @@ export function LoginBonusModal({
 
 				<div className="space-y-6">
 					{/* Level Up Notification */}
-					{levelUp?.leveledUp && (
+					{levelUp && "leveledUp" in levelUp && levelUp.leveledUp && (
 						<Card className="border-purple-500 bg-gradient-to-r from-purple-600/20 to-purple-800/20">
 							<CardContent className="p-4">
 								<div className="flex items-center justify-center gap-2 text-purple-300">

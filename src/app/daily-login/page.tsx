@@ -33,10 +33,21 @@ interface BonusResult {
 		streakBroken: boolean;
 		bonusMultiplier: number;
 	};
-	levelUp?: {
-		newLevel: number;
-		leveledUp: boolean;
-	};
+	levelUp?:
+		| {
+				previousLevel: number;
+				currentLevel: number;
+				rewards: Array<{
+					level: number;
+					rewardType: string;
+					rewardName: string;
+					rewardDescription?: string;
+				}>;
+		  }
+		| {
+				newLevel: number;
+				leveledUp: boolean;
+		  };
 }
 
 export default function DailyLoginPage() {
