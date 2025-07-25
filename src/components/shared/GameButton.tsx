@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const gameButtonVariants = cva(
-	"relative overflow-hidden font-bold transition-all duration-200 shadow-lg active:scale-95",
+	"relative overflow-hidden font-bold transition-all duration-200 shadow-lg active:scale-95 touch-manipulation select-none",
 	{
 		variants: {
 			variant: {
@@ -24,9 +24,9 @@ const gameButtonVariants = cva(
 					"bg-gradient-to-b from-amber-500 to-amber-700 hover:from-amber-400 hover:to-amber-600 text-white border-2 border-amber-400 shadow-amber-500/40",
 			},
 			size: {
-				sm: "h-9 px-3 text-sm",
-				md: "h-11 px-4 text-base",
-				lg: "h-14 px-6 text-lg",
+				sm: "h-9 px-3 text-sm min-h-[36px] min-w-[44px]",
+				md: "h-11 px-4 text-base min-h-[44px] min-w-[44px]",
+				lg: "h-14 px-6 text-lg min-h-[56px] min-w-[56px]",
 			},
 		},
 		defaultVariants: {
