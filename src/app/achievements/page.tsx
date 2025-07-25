@@ -43,18 +43,20 @@ export default async function AchievementsPage() {
 	);
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4">
-			<div className="mx-auto max-w-7xl">
+		<div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-4">
+			<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 				{/* ヘッダー */}
-				<div className="mb-8 text-center">
-					<h1 className="mb-2 font-bold text-4xl text-white">実績</h1>
-					<p className="text-slate-400">
+				<div className="mb-6 text-center sm:mb-8">
+					<h1 className="mb-2 font-bold text-3xl text-white sm:text-4xl">
+						実績
+					</h1>
+					<p className="text-slate-400 text-sm sm:text-base">
 						チャレンジを達成して報酬を獲得しよう！
 					</p>
 				</div>
 
 				{/* 統計カード */}
-				<div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+				<div className="mb-6 grid gap-3 sm:mb-8 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
 					<RPGCard className="text-center">
 						<div className="mb-2 flex justify-center">
 							<Trophy className="h-8 w-8 text-amber-500" />
@@ -93,7 +95,7 @@ export default async function AchievementsPage() {
 				</div>
 
 				{/* 全体プログレス */}
-				<RPGCard className="mb-8">
+				<RPGCard className="mb-6 sm:mb-8">
 					<div className="flex items-center justify-between">
 						<div>
 							<h3 className="font-bold text-lg text-white">全体の進捗</h3>
