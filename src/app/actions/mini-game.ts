@@ -7,6 +7,7 @@ import {
 	saveMiniGameResult,
 } from "@/lib/mini-game/mini-game-service";
 import { createClient } from "@/lib/supabase/server";
+import { checkAndUpdateAchievements } from "./achievement";
 import { grantActivityExperience } from "./user-level";
 
 export interface MiniGameStatus {
@@ -43,6 +44,13 @@ export interface ExtendedMiniGameResult extends MiniGameResult {
 			rewardDescription?: string;
 		}>;
 	};
+	newAchievements?: Array<{
+		id: string;
+		name: string;
+		description: string;
+		points: number;
+		category: string;
+	}>;
 }
 
 export async function submitMiniGameResult(
@@ -95,9 +103,13 @@ export async function submitMiniGameResult(
 		miniGameScore: score,
 	});
 
+	// 実績をチェック
+	const achievementResult = await checkAndUpdateAchievements(user.id);
+
 	return {
 		...result,
 		experience: expResult.experience,
 		levelUp: expResult.levelUp,
+		newAchievements: achievementResult.newlyUnlocked,
 	};
 }

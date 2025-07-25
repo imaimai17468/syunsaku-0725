@@ -6,6 +6,7 @@ import {
 	playRoulette,
 } from "@/lib/roulette/roulette-service";
 import { createClient } from "@/lib/supabase/server";
+import { checkAndUpdateAchievements } from "./achievement";
 import { grantActivityExperience } from "./user-level";
 
 export async function spinRouletteAction() {
@@ -26,10 +27,14 @@ export async function spinRouletteAction() {
 		// ルーレット完了に対して経験値を付与
 		const expResult = await grantActivityExperience("roulette");
 
+		// 実績をチェック
+		const achievementResult = await checkAndUpdateAchievements(user.id);
+
 		return {
 			...result,
 			experience: expResult.experience,
 			levelUp: expResult.levelUp,
+			newAchievements: achievementResult.newlyUnlocked,
 		};
 	}
 

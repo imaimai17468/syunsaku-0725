@@ -7,6 +7,7 @@ import {
 	processUserLogin,
 } from "@/lib/daily-login/login-service";
 import { createClient } from "@/lib/supabase/server";
+import { checkAndUpdateAchievements } from "./achievement";
 import { grantActivityExperience } from "./user-level";
 
 export async function claimDailyLoginBonus() {
@@ -29,10 +30,14 @@ export async function claimDailyLoginBonus() {
 			loginStreak: result.streakInfo.currentStreak,
 		});
 
+		// 実績をチェック
+		const achievementResult = await checkAndUpdateAchievements(user.id);
+
 		return {
 			...result,
 			experience: expResult.experience,
 			levelUp: expResult.levelUp,
+			newAchievements: achievementResult.newlyUnlocked,
 		};
 	}
 
