@@ -7,6 +7,7 @@ import {
 	processUserLogin,
 } from "@/lib/daily-login/login-service";
 import { createClient } from "@/lib/supabase/server";
+import { grantActivityExperience } from "./user-level";
 
 export async function claimDailyLoginBonus() {
 	const supabase = await createClient();
@@ -21,6 +22,19 @@ export async function claimDailyLoginBonus() {
 	}
 
 	const result = await processUserLogin(user.id);
+
+	if (result.success && result.streakInfo) {
+		// ログインボーナスに対して経験値を付与
+		const expResult = await grantActivityExperience("login", {
+			loginStreak: result.streakInfo.currentStreak,
+		});
+
+		return {
+			...result,
+			experience: expResult.experience,
+			levelUp: expResult.levelUp,
+		};
+	}
 
 	return result;
 }
