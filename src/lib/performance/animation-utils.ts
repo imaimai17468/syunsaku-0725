@@ -13,7 +13,7 @@ export const GPU_ACCELERATED_PROPS = {
 };
 
 export const PERFORMANCE_TRANSITION = {
-	type: "spring",
+	type: "spring" as const,
 	damping: 25,
 	stiffness: 300,
 	mass: 0.5,

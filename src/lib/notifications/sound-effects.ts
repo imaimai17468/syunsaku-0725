@@ -40,7 +40,9 @@ class SoundEffectService {
 				const arrayBuffer = await response.arrayBuffer();
 				const audioBuffer =
 					await this.audioContext?.decodeAudioData(arrayBuffer);
-				this.audioBuffers.set(key, audioBuffer);
+				if (audioBuffer) {
+					this.audioBuffers.set(key, audioBuffer);
+				}
 			} catch (error) {
 				console.warn(`音声ファイルの読み込みに失敗: ${path}`, error);
 			}
