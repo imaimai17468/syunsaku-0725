@@ -8,6 +8,7 @@ import {
 	timestamp,
 	unique,
 	uuid,
+	varchar,
 } from "drizzle-orm/pg-core";
 
 // Supabaseで既に作成されているusersテーブルの定義
@@ -173,3 +174,20 @@ export const userAchievements = pgTable("user_achievements", {
 
 export type UserAchievement = typeof userAchievements.$inferSelect;
 export type NewUserAchievement = typeof userAchievements.$inferInsert;
+
+// レート制限テーブル
+export const rateLimits = pgTable("rate_limits", {
+	id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
+	userId: uuid("user_id").notNull(),
+	actionType: varchar("action_type", { length: 50 }).notNull(),
+	attemptCount: integer("attempt_count").default(1),
+	windowStart: timestamp("window_start", { withTimezone: true }).default(
+		sql`NOW()`,
+	),
+	createdAt: timestamp("created_at", { withTimezone: true }).default(
+		sql`NOW()`,
+	),
+});
+
+export type RateLimit = typeof rateLimits.$inferSelect;
+export type NewRateLimit = typeof rateLimits.$inferInsert;
