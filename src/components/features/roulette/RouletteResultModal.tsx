@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { GameButton } from "@/components/shared/GameButton";
 import { RewardItem } from "@/components/shared/RewardItem";
 import { RPGCard } from "@/components/shared/RpgCard";
+import { notifyItem, soundEffects } from "@/lib/notifications";
 import type { RouletteReward } from "@/lib/roulette/roulette-engine";
 
 interface RouletteResultModalProps {
@@ -29,6 +30,7 @@ export function RouletteResultModal({
 	useEffect(() => {
 		if (isOpen) {
 			setShowAnimation(true);
+			soundEffects.play("reward");
 
 			// レアな報酬の場合は紙吹雪エフェクト
 			if (reward.rarity === "legendary" || reward.rarity === "epic") {
@@ -36,8 +38,13 @@ export function RouletteResultModal({
 				const timer = setTimeout(() => setShowConfetti(false), 3000);
 				return () => clearTimeout(timer);
 			}
+
+			// アイテム報酬の場合はトースト通知も表示
+			if (reward.itemId) {
+				notifyItem(reward.name, reward.rarity);
+			}
 		}
-	}, [isOpen, reward.rarity]);
+	}, [isOpen, reward.rarity, reward.itemId, reward.name]);
 
 	if (!isOpen) return null;
 

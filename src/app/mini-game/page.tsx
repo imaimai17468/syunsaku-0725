@@ -27,6 +27,7 @@ import {
 	startGame,
 	startRound,
 } from "@/lib/mini-game/click-game-engine";
+import { soundEffects } from "@/lib/notifications";
 
 export default function MiniGamePage() {
 	const [isLoading, setIsLoading] = useState(true);
@@ -93,6 +94,7 @@ export default function MiniGamePage() {
 
 		if (gameData.state !== "active") return;
 
+		soundEffects.play("click");
 		const updatedData = recordClick(gameData);
 		setGameData(updatedData);
 

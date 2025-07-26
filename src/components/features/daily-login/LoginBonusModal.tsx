@@ -1,6 +1,7 @@
 "use client";
 
 import { Coins, Gift, Zap } from "lucide-react";
+import { useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,6 +12,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
+import { notifyStreak, soundEffects } from "@/lib/notifications";
 
 interface LoginBonusModalProps {
 	isOpen: boolean;
@@ -53,6 +55,15 @@ export function LoginBonusModal({
 	streakInfo,
 	levelUp,
 }: LoginBonusModalProps) {
+	useEffect(() => {
+		if (isOpen) {
+			soundEffects.play("reward");
+			if (streakInfo.currentStreak > 0 && !streakInfo.streakBroken) {
+				notifyStreak(streakInfo.currentStreak);
+			}
+		}
+	}, [isOpen, streakInfo.currentStreak, streakInfo.streakBroken]);
+
 	const getSpecialRewardName = (itemId: string) => {
 		switch (itemId) {
 			case "weekly-chest":
