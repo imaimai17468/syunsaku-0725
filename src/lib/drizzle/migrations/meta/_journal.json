@@ -36,6 +36,48 @@
 			"when": 1753455373914,
 			"tag": "0004_reflective_thor_girl",
 			"breakpoints": true
+		},
+		{
+			"idx": 5,
+			"version": "7",
+			"when": 1753498640206,
+			"tag": "0005_add_rls_policies",
+			"breakpoints": true
+		},
+		{
+			"idx": 6,
+			"version": "7",
+			"when": 1753498640207,
+			"tag": "0006_add_policies",
+			"breakpoints": true
+		},
+		{
+			"idx": 7,
+			"version": "7",
+			"when": 1753498640208,
+			"tag": "0007_add_rate_limits",
+			"breakpoints": true
+		},
+		{
+			"idx": 8,
+			"version": "7",
+			"when": 1753498640209,
+			"tag": "0008_ranking_support",
+			"breakpoints": true
+		},
+		{
+			"idx": 9,
+			"version": "7",
+			"when": 1753498640210,
+			"tag": "0009_migrate_existing_users",
+			"breakpoints": true
+		},
+		{
+			"idx": 10,
+			"version": "7",
+			"when": 1753500490640,
+			"tag": "0010_soft_lady_deathstrike",
+			"breakpoints": true
 		}
 	]
 }
