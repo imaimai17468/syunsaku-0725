@@ -30,8 +30,4 @@ export const signInWithGoogle = async () => {
 	}
 };
 
-export const signOut = async () => {
-	const supabase = createClient();
-
-	supabase.auth.signOut();
-};
+// signOut関数はサーバーアクション（/app/actions/auth.ts）を使用してください

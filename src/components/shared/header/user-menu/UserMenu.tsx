@@ -2,6 +2,7 @@
 
 import { LogOut, User as UserIcon } from "lucide-react";
 import Link from "next/link";
+import { signOut } from "@/app/actions/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
 	DropdownMenu,
@@ -12,7 +13,6 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { UserWithEmail } from "@/entities/user";
-import { signOut } from "@/lib/auth";
 
 type UserMenuProps = {
 	user: UserWithEmail;
@@ -55,15 +55,16 @@ export const UserMenu = ({ user }: UserMenuProps) => {
 					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
-				<DropdownMenuItem
-					className="cursor-pointer text-destructive focus:text-destructive"
-					onClick={async () => {
-						await signOut();
-						window.location.reload();
-					}}
-				>
-					<LogOut className="mr-2 h-4 w-4" />
-					<span>Log out</span>
+				<DropdownMenuItem asChild>
+					<form action={signOut}>
+						<button
+							type="submit"
+							className="flex w-full cursor-pointer items-center text-destructive focus:text-destructive"
+						>
+							<LogOut className="mr-2 h-4 w-4" />
+							<span>Log out</span>
+						</button>
+					</form>
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
