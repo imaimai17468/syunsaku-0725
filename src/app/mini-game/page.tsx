@@ -148,7 +148,7 @@ export default function MiniGamePage() {
 	}
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-4">
+		<div className="min-h-screen bg-black py-[10vh]">
 			<div className="mx-auto max-w-4xl space-y-6 px-4 sm:px-6 lg:px-8">
 				{/* Header */}
 				<RPGCard variant="epic" className="text-center">

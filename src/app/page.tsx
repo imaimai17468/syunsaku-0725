@@ -40,7 +40,7 @@ export default async function Home() {
 	const nextStreakReward = getNextStreakReward(progress.loginStreak);
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-4">
+		<div className="min-h-screen bg-black py-[10vh]">
 			<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 				{/* ヘッダー */}
 				<div className="mb-6 text-center sm:mb-8">
@@ -235,7 +235,7 @@ export default async function Home() {
 
 				{/* その他のメニュー */}
 				<div className="grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
-					<Link href="/profile">
+					<Link href="/player-profile">
 						<GameCard
 							icon={<User className="h-6 w-6" />}
 							title="プロフィール"

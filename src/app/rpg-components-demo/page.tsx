@@ -6,7 +6,7 @@ import { RPGCard } from "@/components/shared/RpgCard";
 
 export default function RPGComponentsDemo() {
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8">
+		<div className="min-h-screen bg-black p-8 py-[10vh]">
 			<div className="mx-auto max-w-6xl space-y-8">
 				<h1 className="mb-8 text-center font-bold text-4xl text-white">
 					RPG Components Demo

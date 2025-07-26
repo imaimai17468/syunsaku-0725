@@ -20,7 +20,7 @@ export default async function PlayerProfilePage() {
 	]);
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4">
+		<div className="min-h-screen bg-black p-4 py-[10vh]">
 			<div className="mx-auto max-w-6xl space-y-6">
 				{/* Header */}
 				<RPGCard variant="legendary" className="text-center">

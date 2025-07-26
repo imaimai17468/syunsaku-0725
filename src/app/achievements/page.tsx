@@ -43,7 +43,7 @@ export default async function AchievementsPage() {
 	);
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-4">
+		<div className="min-h-screen bg-black py-[10vh]">
 			<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 				{/* ヘッダー */}
 				<div className="mb-6 text-center sm:mb-8">

@@ -40,11 +40,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="ja">
-			<body className={`dark antialiased ${geistMono.className}`}>
+			<body className={`dark antialiased ${geistMono.className} bg-black`}>
 				<Header />
-				<div className="flex min-h-screen w-full justify-center px-6 md:px-0">
-					<div className="w-full max-w-7xl">{children}</div>
-				</div>
+				<main className="pt-20">{children}</main>
 				<Toaster richColors position="top-center" />
 			</body>
 		</html>

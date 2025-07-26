@@ -5,7 +5,7 @@ import { RPGCard } from "@/components/shared/RpgCard";
 
 export default function NotFound() {
 	return (
-		<div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4">
+		<div className="flex min-h-screen items-center justify-center bg-black p-4 py-[10vh]">
 			<RPGCard className="max-w-md border-purple-500/30 bg-gradient-to-br from-purple-900/20 to-purple-800/20">
 				<div className="flex flex-col items-center text-center">
 					<div className="mb-4 rounded-full bg-purple-500/20 p-3">

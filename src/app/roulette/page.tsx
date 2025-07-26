@@ -176,7 +176,7 @@ export default function RoulettePage() {
 
 	if (loading) {
 		return (
-			<div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+			<div className="flex min-h-screen items-center justify-center bg-black py-[10vh]">
 				<RPGCard className="text-center">
 					<Loader2 className="mx-auto mb-4 h-8 w-8 animate-spin text-blue-500" />
 					<p className="text-slate-300">ルーレットを読み込んでいます...</p>
@@ -187,7 +187,7 @@ export default function RoulettePage() {
 
 	if (error && !status) {
 		return (
-			<div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4">
+			<div className="flex min-h-screen items-center justify-center bg-black p-4 py-[10vh]">
 				<RPGCard className="max-w-md text-center">
 					<h2 className="mb-4 font-bold text-red-300 text-xl">エラー</h2>
 					<p className="mb-4 text-red-200">{error}</p>
@@ -209,7 +209,7 @@ export default function RoulettePage() {
 	);
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-4">
+		<div className="min-h-screen bg-black py-4 py-[10vh]">
 			<div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
 				{/* ヘッダー */}
 				<div className="mb-6 text-center sm:mb-8">

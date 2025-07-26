@@ -107,7 +107,7 @@ export default function DailyLoginPage() {
 
 	if (loading) {
 		return (
-			<div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+			<div className="flex min-h-screen items-center justify-center bg-black py-[10vh]">
 				<RPGCard className="text-center">
 					<Loader2 className="mx-auto mb-4 h-8 w-8 animate-spin text-blue-500" />
 					<p className="text-slate-300">Loading your login status...</p>
@@ -118,7 +118,7 @@ export default function DailyLoginPage() {
 
 	if (error) {
 		return (
-			<div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4">
+			<div className="flex min-h-screen items-center justify-center bg-black p-4 py-[10vh]">
 				<RPGCard className="max-w-md border-red-500 bg-red-900/20 text-center">
 					<h2 className="mb-4 font-bold text-red-300 text-xl">Error</h2>
 					<p className="mb-4 text-red-200">{error}</p>
@@ -136,7 +136,7 @@ export default function DailyLoginPage() {
 
 	if (!loginStatus) {
 		return (
-			<div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4">
+			<div className="flex min-h-screen items-center justify-center bg-black p-4 py-[10vh]">
 				<RPGCard className="text-center">
 					<p className="text-slate-300">No login data available</p>
 				</RPGCard>
@@ -145,7 +145,7 @@ export default function DailyLoginPage() {
 	}
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-4">
+		<div className="min-h-screen bg-black py-[10vh]">
 			<div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
 				<div className="mb-6 text-center sm:mb-8">
 					<h1 className="mb-2 font-bold text-3xl text-white sm:text-4xl">

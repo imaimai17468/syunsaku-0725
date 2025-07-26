@@ -21,7 +21,7 @@ export default function ErrorPage({
 	}, [error]);
 
 	return (
-		<div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4">
+		<div className="flex min-h-screen items-center justify-center bg-black p-4 py-[10vh]">
 			<RPGCard className="max-w-md border-red-500/30 bg-gradient-to-br from-red-900/20 to-red-800/20">
 				<div className="flex flex-col items-center text-center">
 					<div className="mb-4 rounded-full bg-red-500/20 p-3">

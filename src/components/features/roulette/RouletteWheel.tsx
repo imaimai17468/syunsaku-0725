@@ -105,11 +105,11 @@ export function RouletteWheel({
 									<div
 										className="absolute flex flex-col items-center justify-center"
 										style={{
-											top: "15%",
+											top: "25%",
 											left: "50%",
 											transform: `translateX(-50%) rotate(${segmentAngle / 2}deg)`,
-											width: "60px",
-											height: "60px",
+											width: "80px",
+											height: "80px",
 										}}
 									>
 										{/* Icon */}
