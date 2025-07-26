@@ -3,6 +3,11 @@
 import { Loader2 } from "lucide-react";
 import dynamic from "next/dynamic";
 import type { ComponentType } from "react";
+import type { AchievementNotificationProps } from "@/components/features/achievement/AchievementNotification";
+import type { ItemDetailModalProps } from "@/components/features/inventory/ItemDetailModal";
+import type { LevelUpEffectProps } from "@/components/features/level-up/LevelUpEffect";
+import type { RouletteResultModalProps } from "@/components/features/roulette/RouletteResultModal";
+import type { RouletteWheelProps } from "@/components/features/roulette/RouletteWheel";
 
 export const createLazyComponent = <P extends object>(
 	importFn: () => Promise<{ default: ComponentType<P> }>,
@@ -19,50 +24,29 @@ export const createLazyComponent = <P extends object>(
 	});
 };
 
-export const LazyAchievementNotification = createLazyComponent(
-	() =>
-		import("@/components/features/achievement/AchievementNotification").then(
-			(mod) => ({ default: mod.AchievementNotification }),
-		),
-	"実績情報を読み込み中...",
-);
+export const LazyAchievementNotification =
+	createLazyComponent<AchievementNotificationProps>(
+		() => import("@/components/features/achievement/AchievementNotification"),
+		"実績情報を読み込み中...",
+	);
 
-export const LazyLevelUpEffect = createLazyComponent(
-	() =>
-		import("@/components/features/level-up/LevelUpEffect").then((mod) => ({
-			default: mod.LevelUpEffect,
-		})),
+export const LazyLevelUpEffect = createLazyComponent<LevelUpEffectProps>(
+	() => import("@/components/features/level-up/LevelUpEffect"),
 	"レベルアップエフェクトを準備中...",
 );
 
-export const LazyRouletteWheel = createLazyComponent(
-	() =>
-		import("@/components/features/roulette/RouletteWheel").then((mod) => ({
-			default: mod.RouletteWheel,
-		})),
+export const LazyRouletteWheel = createLazyComponent<RouletteWheelProps>(
+	() => import("@/components/features/roulette/RouletteWheel"),
 	"ルーレットを読み込み中...",
 );
 
-export const LazyRouletteResultModal = createLazyComponent(
-	() =>
-		import("@/components/features/roulette/RouletteResultModal").then(
-			(mod) => ({ default: mod.RouletteResultModal }),
-		),
-	"結果モーダルを準備中...",
-);
+export const LazyRouletteResultModal =
+	createLazyComponent<RouletteResultModalProps>(
+		() => import("@/components/features/roulette/RouletteResultModal"),
+		"結果モーダルを準備中...",
+	);
 
-export const LazyInventoryGrid = createLazyComponent(
-	() =>
-		import("@/components/features/inventory/InventoryGrid").then((mod) => ({
-			default: mod.InventoryGrid,
-		})),
-	"インベントリを読み込み中...",
-);
-
-export const LazyItemDetailModal = createLazyComponent(
-	() =>
-		import("@/components/features/inventory/ItemDetailModal").then((mod) => ({
-			default: mod.ItemDetailModal,
-		})),
+export const LazyItemDetailModal = createLazyComponent<ItemDetailModalProps>(
+	() => import("@/components/features/inventory/ItemDetailModal"),
 	"アイテム詳細を読み込み中...",
 );
