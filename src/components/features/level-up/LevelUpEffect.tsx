@@ -5,6 +5,7 @@ import { Sparkles, Star, Trophy } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { soundEffects } from "@/lib/notifications";
 import type { LevelUpReward } from "@/lib/user-level/level-service";
 
 interface LevelUpEffectProps {
@@ -26,6 +27,7 @@ export function LevelUpEffect({
 
 	useEffect(() => {
 		if (isOpen) {
+			soundEffects.play("levelUp");
 			const timer = setTimeout(() => {
 				setShowRewards(true);
 			}, 1500);

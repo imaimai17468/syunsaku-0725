@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Award, X } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import type { Achievement } from "@/entities/achievement";
+import { soundEffects } from "@/lib/notifications";
 import { cn } from "@/lib/utils";
 
 interface AchievementNotificationProps {
@@ -32,6 +33,12 @@ export function AchievementNotification({
 			onClose?.();
 		}
 	}, [currentIndex, achievements.length, onClose]);
+
+	useEffect(() => {
+		if (currentAchievement) {
+			soundEffects.play("achievement");
+		}
+	}, [currentAchievement]);
 
 	useEffect(() => {
 		if (autoHide && isVisible) {
