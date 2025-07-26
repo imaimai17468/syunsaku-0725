@@ -105,8 +105,8 @@ export function RouletteWheel({
 									<div
 										className="absolute flex flex-col items-center justify-center"
 										style={{
-											top: "25%",
-											left: "50%",
+											top: "10%",
+											left: "62.5%",
 											transform: `translateX(-50%) rotate(${segmentAngle / 2}deg)`,
 											width: "80px",
 											height: "80px",
