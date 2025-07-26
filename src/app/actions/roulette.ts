@@ -1,44 +1,40 @@
 "use server";
 
-import { redirect } from "next/navigation";
+import { withAuth } from "@/lib/auth/auth-guard";
 import {
 	checkRouletteStatus,
 	playRoulette,
 } from "@/lib/roulette/roulette-service";
+import { RateLimiter } from "@/lib/security/rate-limiter";
 import { createClient } from "@/lib/supabase/server";
 import { checkAndUpdateAchievements } from "./achievement";
 import { grantActivityExperience } from "./user-level";
 
 export async function spinRouletteAction() {
-	const supabase = await createClient();
+	return withAuth(async (userId) => {
+		// レート制限チェック
+		const rateLimiter = new RateLimiter("gameAction");
+		await rateLimiter.enforce(userId);
 
-	const {
-		data: { user },
-		error,
-	} = await supabase.auth.getUser();
+		const result = await playRoulette(userId);
 
-	if (error || !user) {
-		redirect("/login");
-	}
+		if (result.success) {
+			// ルーレット完了に対して経験値を付与
+			const expResult = await grantActivityExperience("roulette");
 
-	const result = await playRoulette(user.id);
+			// 実績をチェック
+			const achievementResult = await checkAndUpdateAchievements(userId);
 
-	if (result.success) {
-		// ルーレット完了に対して経験値を付与
-		const expResult = await grantActivityExperience("roulette");
+			return {
+				...result,
+				experience: expResult.experience,
+				levelUp: expResult.levelUp,
+				newAchievements: achievementResult.newlyUnlocked,
+			};
+		}
 
-		// 実績をチェック
-		const achievementResult = await checkAndUpdateAchievements(user.id);
-
-		return {
-			...result,
-			experience: expResult.experience,
-			levelUp: expResult.levelUp,
-			newAchievements: achievementResult.newlyUnlocked,
-		};
-	}
-
-	return result;
+		return result;
+	});
 }
 
 export async function getRouletteStatus() {
