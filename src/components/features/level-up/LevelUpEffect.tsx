@@ -1,10 +1,11 @@
 "use client";
 
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { AnimatePresence, motion } from "framer-motion";
 import { Sparkles, Star, Trophy } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { soundEffects } from "@/lib/notifications";
 import type { LevelUpReward } from "@/lib/user-level/level-service";
 
@@ -39,6 +40,9 @@ export function LevelUpEffect({
 	return (
 		<Dialog open={isOpen} onOpenChange={onClose}>
 			<DialogContent className="max-w-md overflow-hidden border-purple-500/50 bg-gradient-to-br from-purple-900/90 via-slate-900/90 to-blue-900/90">
+				<VisuallyHidden>
+					<DialogTitle>レベルアップ</DialogTitle>
+				</VisuallyHidden>
 				<div className="relative">
 					{/* Background effects */}
 					<div className="absolute inset-0 overflow-hidden">
