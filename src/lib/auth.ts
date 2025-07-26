@@ -1,4 +1,5 @@
 import { createClient } from "./supabase/client";
+import { getURL } from "./utils/url";
 
 export const signInWithGithub = async () => {
 	const supabase = createClient();
@@ -6,7 +7,7 @@ export const signInWithGithub = async () => {
 	const { error } = await supabase.auth.signInWithOAuth({
 		provider: "github",
 		options: {
-			redirectTo: `${window.location.origin}/auth/callback`,
+			redirectTo: `${getURL()}auth/callback`,
 		},
 	});
 
@@ -21,7 +22,7 @@ export const signInWithGoogle = async () => {
 	const { error } = await supabase.auth.signInWithOAuth({
 		provider: "google",
 		options: {
-			redirectTo: `${window.location.origin}/auth/callback`,
+			redirectTo: `${getURL()}auth/callback`,
 		},
 	});
 
