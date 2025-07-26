@@ -253,15 +253,6 @@ export default async function Home() {
 							small
 						/>
 					</Link>
-					<Link href="/rpg-components-demo">
-						<GameCard
-							icon={<Trophy className="h-6 w-6" />}
-							title="コンポーネントデモ"
-							description="UIコンポーネントの確認"
-							variant="default"
-							small
-						/>
-					</Link>
 				</div>
 			</div>
 		</div>
