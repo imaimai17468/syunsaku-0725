@@ -1,5 +1,4 @@
-import { createClient } from "@/lib/supabase/client";
-import { isDevelopment } from "@/utils/environment";
+import { createClient } from "@/lib/supabase/server";
 import { getRank } from "./click-game-engine";
 
 export interface MiniGameResult {
@@ -79,23 +78,14 @@ export const calculateRewards = (
 	};
 };
 
-export const checkMiniGameStatus = async (
-	userId: string,
-): Promise<{
+export async function checkMiniGameStatus(userId: string): Promise<{
 	canPlay: boolean;
 	lastPlayedAt: string | null;
 	todayScore: number | null;
-}> => {
-	if (isDevelopment()) {
-		// 開発環境では常にプレイ可能
-		return {
-			canPlay: true,
-			lastPlayedAt: null,
-			todayScore: null,
-		};
-	}
+}> {
+	// 開発環境でも制限を適用
 
-	const supabase = createClient();
+	const supabase = await createClient();
 	const today = new Date().toISOString().split("T")[0];
 
 	const { data, error } = await supabase
@@ -115,18 +105,15 @@ export const checkMiniGameStatus = async (
 		lastPlayedAt: data?.updated_at || null,
 		todayScore: data?.mini_game_score || null,
 	};
-};
+}
 
-export const saveMiniGameResult = async (
+export async function saveMiniGameResult(
 	userId: string,
 	result: MiniGameResult,
-): Promise<void> => {
-	if (isDevelopment()) {
-		console.log("Dev mode: Mini game result saved", { userId, result });
-		return;
-	}
+): Promise<void> {
+	// 開発環境でも保存処理を実行
 
-	const supabase = createClient();
+	const supabase = await createClient();
 	const today = new Date().toISOString().split("T")[0];
 
 	// トランザクション的な処理
@@ -194,4 +181,4 @@ export const saveMiniGameResult = async (
 		console.error("Error saving mini game result:", error);
 		throw error;
 	}
-};
+}
