@@ -12,6 +12,7 @@ import { ProgressBar } from "@/components/shared/ProgressBar";
 import { RewardItem } from "@/components/shared/RewardItem";
 import { RPGCard } from "@/components/shared/RpgCard";
 import type { Achievement } from "@/entities/achievement";
+import { useErrorHandler } from "@/hooks/use-error-handler";
 import {
 	DEFAULT_ROULETTE_REWARDS,
 	sortRewardsByAngle,
@@ -80,26 +81,37 @@ export default function RoulettePage() {
 	const [showLevelUpEffect, setShowLevelUpEffect] = useState(false);
 	const [newAchievements, setNewAchievements] = useState<Achievement[]>([]);
 
+	const { handleAsyncError } = useErrorHandler();
 	const rewards = sortRewardsByAngle(DEFAULT_ROULETTE_REWARDS);
 
 	const fetchStatus = useCallback(async () => {
-		try {
-			setLoading(true);
-			const result = await getRouletteStatus();
+		setLoading(true);
+		setError(null);
 
-			if (result.success && result.data) {
-				setStatus(result.data);
-				setError(null);
-			} else {
-				setError(result.error || "ルーレットの状態を取得できませんでした");
-			}
-		} catch (err) {
-			setError("予期しないエラーが発生しました");
-			console.error("Error fetching roulette status:", err);
-		} finally {
-			setLoading(false);
+		const result = await handleAsyncError(
+			async () => {
+				const res = await getRouletteStatus();
+				if (!res.success) {
+					throw new Error(
+						res.error || "ルーレットの状態を取得できませんでした",
+					);
+				}
+				return res;
+			},
+			{
+				showToast: false,
+				fallbackMessage: "ルーレットの状態を取得できませんでした",
+			},
+		);
+
+		if (result?.success && result.data) {
+			setStatus(result.data);
+		} else {
+			setError("ルーレットの状態を取得できませんでした");
 		}
-	}, []);
+
+		setLoading(false);
+	}, [handleAsyncError]);
 
 	const handleSpin = async () => {
 		if (!status?.canPlay || spinning) return;

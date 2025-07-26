@@ -1,5 +1,6 @@
 import { revalidatePath } from "next/cache";
 import { type UserLevel, UserLevelSchema } from "@/entities/user-level";
+import { createError, withRetry } from "@/lib/error-handling";
 import { createClient } from "@/lib/supabase/server";
 
 // Supabaseクライアントを取得
@@ -10,29 +11,51 @@ const getSupabaseClient = async () => {
 export const fetchUserLevel = async (
 	userId: string,
 ): Promise<UserLevel | null> => {
-	const supabase = await getSupabaseClient();
+	return withRetry(
+		async () => {
+			const supabase = await getSupabaseClient();
 
-	const { data, error } = await supabase
-		.from("user_levels")
-		.select("*")
-		.eq("user_id", userId)
-		.single();
+			const { data, error } = await supabase
+				.from("user_levels")
+				.select("*")
+				.eq("user_id", userId)
+				.single();
 
-	if (error || !data) {
-		return null;
-	}
+			if (error) {
+				if (error.code === "PGRST116") {
+					// レコードが見つからない場合はnullを返す
+					return null;
+				}
+				throw createError("serverError", "ユーザーレベルの取得に失敗しました", {
+					details: error,
+					canRetry: true,
+				});
+			}
 
-	const rawLevel = {
-		id: data.id,
-		userId: data.user_id,
-		currentLevel: data.current_level,
-		currentExp: data.current_exp,
-		totalExp: data.total_exp,
-		createdAt: new Date(data.created_at),
-		updatedAt: new Date(data.updated_at),
-	};
+			if (!data) {
+				return null;
+			}
 
-	return UserLevelSchema.parse(rawLevel);
+			const rawLevel = {
+				id: data.id,
+				userId: data.user_id,
+				currentLevel: data.current_level,
+				currentExp: data.current_exp,
+				totalExp: data.total_exp,
+				createdAt: new Date(data.created_at),
+				updatedAt: new Date(data.updated_at),
+			};
+
+			return UserLevelSchema.parse(rawLevel);
+		},
+		{
+			maxAttempts: 3,
+			shouldRetry: (error) => {
+				const appError = error as ReturnType<typeof createError>;
+				return appError.retry?.canRetry === true;
+			},
+		},
+	);
 };
 
 export const upsertUserLevel = async (

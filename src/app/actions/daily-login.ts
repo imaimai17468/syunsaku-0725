@@ -1,47 +1,57 @@
 "use server";
 
-import { redirect } from "next/navigation";
 import { fetchLoginStreak } from "@/gateways/login-streak";
+import { withAuth } from "@/lib/auth/auth-guard";
 import {
 	checkTodayLoginStatus,
 	processUserLogin,
 } from "@/lib/daily-login/login-service";
+import { createError, withRetry } from "@/lib/error-handling";
 import { createClient } from "@/lib/supabase/server";
 import { checkAndUpdateAchievements } from "./achievement";
 import { grantActivityExperience } from "./user-level";
 
 export async function claimDailyLoginBonus() {
-	const supabase = await createClient();
+	return withAuth(async (userId) => {
+		return withRetry(
+			async () => {
+				const result = await processUserLogin(userId);
 
-	const {
-		data: { user },
-		error,
-	} = await supabase.auth.getUser();
+				if (!result.success) {
+					throw createError(
+						"serverError",
+						result.error || "ログイン処理に失敗しました",
+					);
+				}
 
-	if (error || !user) {
-		redirect("/login");
-	}
+				if (result.streakInfo) {
+					// ログインボーナスに対して経験値を付与
+					const expResult = await grantActivityExperience("login", {
+						loginStreak: result.streakInfo.currentStreak,
+					});
 
-	const result = await processUserLogin(user.id);
+					// 実績をチェック
+					const achievementResult = await checkAndUpdateAchievements(userId);
 
-	if (result.success && result.streakInfo) {
-		// ログインボーナスに対して経験値を付与
-		const expResult = await grantActivityExperience("login", {
-			loginStreak: result.streakInfo.currentStreak,
-		});
+					return {
+						...result,
+						experience: expResult.experience,
+						levelUp: expResult.levelUp,
+						newAchievements: achievementResult.newlyUnlocked,
+					};
+				}
 
-		// 実績をチェック
-		const achievementResult = await checkAndUpdateAchievements(user.id);
-
-		return {
-			...result,
-			experience: expResult.experience,
-			levelUp: expResult.levelUp,
-			newAchievements: achievementResult.newlyUnlocked,
-		};
-	}
-
-	return result;
+				return result;
+			},
+			{
+				maxAttempts: 3,
+				shouldRetry: (error) => {
+					const appError = error as ReturnType<typeof createError>;
+					return appError.type === "serverError";
+				},
+			},
+		);
+	});
 }
 
 export async function getUserLoginStatus() {
