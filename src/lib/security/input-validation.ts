@@ -113,7 +113,7 @@ export const validateInput = <T>(
 				options?.errorMessage || "入力値が不正です",
 				{
 					code: "INVALID_INPUT",
-					details: error.errors,
+					details: error.issues,
 				},
 			);
 		}

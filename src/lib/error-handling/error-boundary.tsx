@@ -2,8 +2,8 @@
 
 import { AlertTriangle, RefreshCw } from "lucide-react";
 import { useEffect } from "react";
-import { GameButton } from "@/components/shared/game-button";
-import { RPGCard } from "@/components/shared/rpg-card";
+import { GameButton } from "@/components/shared/GameButton";
+import { RPGCard } from "@/components/shared/RpgCard";
 
 interface ErrorBoundaryProps {
 	error: Error & { digest?: string };

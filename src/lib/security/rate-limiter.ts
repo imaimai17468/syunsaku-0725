@@ -78,9 +78,9 @@ export class RateLimiter {
 		// ブロック期間中かチェック
 		if (attempts && attempts.length > 0) {
 			const lastAttempt = attempts[0];
-			if (lastAttempt.attempt_count >= this.config.maxAttempts) {
+			if ((lastAttempt.attempt_count ?? 0) >= this.config.maxAttempts) {
 				const blockUntil = new Date(
-					new Date(lastAttempt.created_at).getTime() +
+					new Date(lastAttempt.created_at ?? new Date()).getTime() +
 						(this.config.blockDurationMs || 0),
 				);
 				if (blockUntil > now) {
@@ -119,7 +119,7 @@ export class RateLimiter {
 			await supabase
 				.from("rate_limits")
 				.update({
-					attempt_count: existing.attempt_count + 1,
+					attempt_count: (existing.attempt_count ?? 0) + 1,
 				})
 				.eq("id", existing.id);
 		} else {

@@ -13,7 +13,7 @@ export const safeParse = <T>(
 		return schema.parse(data);
 	} catch (error) {
 		if (error instanceof z.ZodError) {
-			const details = error.errors.map((e) => ({
+			const details = error.issues.map((e: z.ZodIssue) => ({
 				path: e.path.join("."),
 				message: e.message,
 			}));
@@ -47,7 +47,7 @@ export const safeParseAsync = async <T>(
 		return await schema.parseAsync(data);
 	} catch (error) {
 		if (error instanceof z.ZodError) {
-			const details = error.errors.map((e) => ({
+			const details = error.issues.map((e: z.ZodIssue) => ({
 				path: e.path.join("."),
 				message: e.message,
 			}));
