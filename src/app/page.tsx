@@ -181,7 +181,7 @@ export default async function Home() {
 					<h2 className="mb-4 font-bold text-white text-xl sm:text-2xl">
 						ゲームメニュー
 					</h2>
-					<div className="grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
+					<div className="grid gap-3 sm:grid-cols-2 sm:gap-3 lg:grid-cols-3">
 						<Link
 							href="/daily-login"
 							className={progress.dailyLogin ? "pointer-events-none" : ""}
@@ -222,14 +222,6 @@ export default async function Home() {
 								disabled={progress.miniGameCompleted}
 							/>
 						</Link>
-						<Link href="/inventory">
-							<GameCard
-								icon={<Package className="h-8 w-8" />}
-								title="インベントリ"
-								description="獲得したアイテムを確認"
-								variant="default"
-							/>
-						</Link>
 					</div>
 				</div>
 
@@ -249,6 +241,15 @@ export default async function Home() {
 							icon={<Award className="h-6 w-6" />}
 							title="実績"
 							description="チャレンジと報酬"
+							variant="default"
+							small
+						/>
+					</Link>
+					<Link href="/inventory">
+						<GameCard
+							icon={<Package className="h-6 w-6" />}
+							title="インベントリ"
+							description="獲得したアイテムを確認"
 							variant="default"
 							small
 						/>
