@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import type { Database } from "@/lib/supabase/types";
 
 export type BatchQueryOptions = {
 	parallel?: boolean;
@@ -53,8 +54,10 @@ export const batchQuery = async <
 	}
 };
 
+type TableNames = keyof Database["public"]["Tables"];
+
 export const createOptimizedFetch = <T>(
-	tableName: string,
+	tableName: TableNames,
 	selectColumns?: string[],
 ) => {
 	return async (
