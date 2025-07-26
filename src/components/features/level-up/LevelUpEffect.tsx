@@ -8,7 +8,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { soundEffects } from "@/lib/notifications";
 import type { LevelUpReward } from "@/lib/user-level/level-service";
 
-interface LevelUpEffectProps {
+export interface LevelUpEffectProps {
 	isOpen: boolean;
 	onClose: () => void;
 	previousLevel: number;
@@ -151,3 +151,5 @@ export function LevelUpEffect({
 		</Dialog>
 	);
 }
+
+export default LevelUpEffect;

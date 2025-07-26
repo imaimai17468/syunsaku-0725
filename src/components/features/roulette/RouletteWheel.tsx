@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import type { RouletteReward } from "@/lib/roulette/roulette-engine";
 import { cn } from "@/lib/utils";
 
-interface RouletteWheelProps {
+export interface RouletteWheelProps {
 	rewards: RouletteReward[];
 	isSpinning: boolean;
 	spinAngle?: number;
@@ -158,3 +158,5 @@ export function RouletteWheel({
 		</div>
 	);
 }
+
+export default RouletteWheel;

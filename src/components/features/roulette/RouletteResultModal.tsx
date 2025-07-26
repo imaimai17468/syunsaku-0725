@@ -8,7 +8,7 @@ import { RPGCard } from "@/components/shared/RpgCard";
 import { notifyItem, soundEffects } from "@/lib/notifications";
 import type { RouletteReward } from "@/lib/roulette/roulette-engine";
 
-interface RouletteResultModalProps {
+export interface RouletteResultModalProps {
 	isOpen: boolean;
 	onClose: () => void;
 	reward: RouletteReward;
@@ -236,3 +236,5 @@ export function RouletteResultModal({
 function cn(...classes: (string | undefined | false)[]): string {
 	return classes.filter(Boolean).join(" ");
 }
+
+export default RouletteResultModal;

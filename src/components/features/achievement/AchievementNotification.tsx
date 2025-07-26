@@ -7,7 +7,7 @@ import type { Achievement } from "@/entities/achievement";
 import { soundEffects } from "@/lib/notifications";
 import { cn } from "@/lib/utils";
 
-interface AchievementNotificationProps {
+export interface AchievementNotificationProps {
 	achievements: Achievement[];
 	onClose?: () => void;
 	autoHide?: boolean;
@@ -199,3 +199,5 @@ export function AchievementNotification({
 		</AnimatePresence>
 	);
 }
+
+export default AchievementNotification;

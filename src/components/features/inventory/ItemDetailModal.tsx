@@ -15,7 +15,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import type { InventoryItem } from "@/lib/inventory/inventory-service";
 
-interface ItemDetailModalProps {
+export interface ItemDetailModalProps {
 	item: InventoryItem | null;
 	isOpen: boolean;
 	onClose: () => void;
@@ -173,3 +173,5 @@ export function ItemDetailModal({
 		</Dialog>
 	);
 }
+
+export default ItemDetailModal;
