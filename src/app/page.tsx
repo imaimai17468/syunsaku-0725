@@ -7,13 +7,21 @@ import {
 	Trophy,
 	User,
 } from "lucide-react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getDailyProgress } from "@/app/actions/daily-login";
 import { GameCard } from "@/components/features/dashboard/GameCard";
 import { ProgressBar } from "@/components/shared/ProgressBar";
 import { RPGCard } from "@/components/shared/RpgCard";
+import { generatePageMetadata } from "@/lib/seo/metadata";
 import { createClient } from "@/lib/supabase/server";
+
+export const metadata: Metadata = generatePageMetadata(
+	"ホーム",
+	"デイリーリワードで毎日の楽しみを！ログインボーナス、ルーレット、ミニゲームで報酬を獲得しよう",
+	"/",
+);
 
 export default async function Home() {
 	const supabase = await createClient();
