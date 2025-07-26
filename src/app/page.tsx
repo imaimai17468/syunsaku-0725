@@ -254,6 +254,15 @@ export default async function Home() {
 							small
 						/>
 					</Link>
+					<Link href="/ranking">
+						<GameCard
+							icon={<Trophy className="h-6 w-6" />}
+							title="ランキング"
+							description="他のプレイヤーと競争"
+							variant="default"
+							small
+						/>
+					</Link>
 				</div>
 			</div>
 		</div>

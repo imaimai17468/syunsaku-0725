@@ -20,7 +20,8 @@
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "db:pull": "drizzle-kit pull",
-    "supabase:push": "node scripts/supabase-push.js"
+    "supabase:push": "node scripts/supabase-push.js",
+    "restore:achievements": "node scripts/restore-achievements.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",

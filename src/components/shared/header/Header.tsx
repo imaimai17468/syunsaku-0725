@@ -32,6 +32,12 @@ export const Header = async () => {
 					>
 						ミニゲーム
 					</Link>
+					<Link
+						href="/ranking"
+						className="text-gray-400 text-sm transition-colors hover:text-white"
+					>
+						ランキング
+					</Link>
 					<AuthNavigation user={user} />
 				</div>
 			</div>
