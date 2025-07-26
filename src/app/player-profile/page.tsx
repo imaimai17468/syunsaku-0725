@@ -20,17 +20,23 @@ export default async function PlayerProfilePage() {
 	]);
 
 	return (
-		<div className="min-h-screen bg-black p-4 py-[10vh]">
-			<div className="mx-auto max-w-6xl space-y-6">
-				{/* Header */}
-				<RPGCard variant="legendary" className="text-center">
-					<h1 className="mb-2 font-bold text-3xl text-white">
-						<User className="mb-2 inline-block h-8 w-8" /> Player Profile
+		<div className="min-h-screen bg-black py-[10vh]">
+			<div className="mx-auto max-w-6xl px-4">
+				{/* ヒーローセクション */}
+				<div className="mb-12 text-center">
+					<div className="mb-6 flex justify-center">
+						<div className="relative">
+							<div className="absolute inset-0 animate-pulse rounded-full bg-gradient-to-r from-purple-600 to-pink-600 opacity-75 blur-xl" />
+							<User className="relative h-24 w-24 text-white" />
+						</div>
+					</div>
+					<h1 className="mb-4 bg-gradient-to-b from-white to-gray-400 bg-clip-text font-bold text-5xl text-transparent">
+						プレイヤープロフィール
 					</h1>
-					<p className="text-slate-300">
+					<p className="mx-auto max-w-2xl text-gray-400 text-lg">
 						{user.name || "冒険者"}の冒険の記録とステータス
 					</p>
-				</RPGCard>
+				</div>
 
 				{/* Main Content */}
 				<Tabs defaultValue="overview" className="space-y-4">

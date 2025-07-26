@@ -146,13 +146,14 @@ export default function DailyLoginPage() {
 
 	return (
 		<div className="min-h-screen bg-black py-[10vh]">
-			<div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-				<div className="mb-6 text-center sm:mb-8">
-					<h1 className="mb-2 font-bold text-3xl text-white sm:text-4xl">
-						Daily Login Rewards
+			<div className="mx-auto max-w-6xl px-4">
+				{/* ヒーローセクション */}
+				<div className="mb-12 text-center">
+					<h1 className="mb-4 bg-gradient-to-b from-white to-gray-400 bg-clip-text font-bold text-5xl text-transparent">
+						デイリーログイン
 					</h1>
-					<p className="text-slate-400 text-sm sm:text-base">
-						Keep your streak alive and earn amazing rewards!
+					<p className="mx-auto max-w-2xl text-gray-400 text-lg">
+						毎日ログインして連続ボーナスを獲得しよう！
 					</p>
 				</div>
 
