@@ -7,19 +7,19 @@ import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 const rpgCardVariants = cva(
-	"relative overflow-hidden border-2 backdrop-blur-sm transition-all duration-300",
+	"relative overflow-hidden rounded-2xl border backdrop-blur-sm transition-all duration-300",
 	{
 		variants: {
 			variant: {
 				default:
-					"bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 border-slate-600 shadow-lg shadow-slate-500/20",
-				rare: "bg-gradient-to-br from-blue-800 via-blue-700 to-blue-900 border-blue-500 shadow-lg shadow-blue-500/30",
-				epic: "bg-gradient-to-br from-purple-800 via-purple-700 to-purple-900 border-purple-500 shadow-lg shadow-purple-500/30",
+					"bg-gradient-to-br from-gray-900/90 via-gray-800/90 to-gray-900/90 border-gray-700 shadow-2xl shadow-black/50",
+				rare: "bg-gradient-to-br from-blue-900/90 via-blue-800/90 to-blue-900/90 border-blue-600 shadow-2xl shadow-blue-950/50",
+				epic: "bg-gradient-to-br from-purple-900/90 via-purple-800/90 to-purple-900/90 border-purple-600 shadow-2xl shadow-purple-950/50",
 				legendary:
-					"bg-gradient-to-br from-amber-800 via-amber-700 to-amber-900 border-amber-500 shadow-lg shadow-amber-500/40",
+					"bg-gradient-to-br from-amber-900/90 via-amber-800/90 to-amber-900/90 border-amber-600 shadow-2xl shadow-amber-950/50",
 			},
 			animated: {
-				true: "hover:scale-105 hover:shadow-xl",
+				true: "hover:scale-[1.02] hover:shadow-3xl hover:border-opacity-80",
 				false: "",
 			},
 		},
