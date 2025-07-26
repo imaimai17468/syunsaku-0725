@@ -11,7 +11,6 @@ import {
 } from "@/app/actions/inventory";
 import { InventoryFilter } from "@/components/features/inventory/InventoryFilter";
 import { InventoryItem } from "@/components/features/inventory/InventoryItem";
-import { ItemDetailModal } from "@/components/features/inventory/ItemDetailModal";
 import { RPGCard } from "@/components/shared/RpgCard";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -22,6 +21,7 @@ import type {
 	InventoryItem as InventoryItemType,
 	InventoryStats,
 } from "@/lib/inventory/inventory-service";
+import { LazyItemDetailModal } from "@/lib/performance/lazy-load";
 
 export default function InventoryPage() {
 	const [isLoading, setIsLoading] = useState(true);
@@ -280,7 +280,7 @@ export default function InventoryPage() {
 			</div>
 
 			{/* Item Detail Modal */}
-			<ItemDetailModal
+			<LazyItemDetailModal
 				item={selectedItem}
 				isOpen={showDetailModal}
 				onClose={() => setShowDetailModal(false)}
