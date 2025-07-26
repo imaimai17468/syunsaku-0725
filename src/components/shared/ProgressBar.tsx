@@ -57,9 +57,9 @@ export function ProgressBar({
 		<div className={cn("w-full", className)}>
 			{label && (
 				<div className="mb-2 flex items-center justify-between">
-					<span className="font-medium text-slate-200 text-sm">{label}</span>
+					<span className="font-medium text-gray-200 text-sm">{label}</span>
 					{showText && (
-						<span className="text-slate-400 text-sm">
+						<span className="text-gray-400 text-sm">
 							{value}/{max}
 						</span>
 					)}
@@ -70,17 +70,18 @@ export function ProgressBar({
 				<Progress
 					value={displayValue}
 					className={cn(
-						"h-4 border border-slate-600 bg-slate-700",
+						"h-4 border border-gray-700 bg-gray-900/50 shadow-inner",
 						progressBarVariants({ variant }),
 						animated &&
 							"[&>div]:transition-all [&>div]:duration-1000 [&>div]:ease-out",
+						"[&>div>div]:shadow-black/50 [&>div>div]:shadow-lg",
 					)}
 				/>
 
 				{/* Animated shine effect */}
 				{animated && displayValue > 0 && (
 					<div className="pointer-events-none absolute inset-0 overflow-hidden rounded-full">
-						<div className="absolute inset-0 h-full animate-pulse bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+						<div className="absolute inset-0 h-full animate-pulse bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 					</div>
 				)}
 

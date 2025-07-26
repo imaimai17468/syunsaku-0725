@@ -9,25 +9,25 @@ import { soundEffects } from "@/lib/notifications";
 import { cn } from "@/lib/utils";
 
 const gameButtonVariants = cva(
-	"relative overflow-hidden font-bold transition-all duration-200 shadow-lg active:scale-95 touch-manipulation select-none",
+	"relative overflow-hidden font-semibold transition-all duration-300 shadow-2xl shadow-black/50 active:scale-[0.98] touch-manipulation select-none rounded-xl backdrop-blur-sm",
 	{
 		variants: {
 			variant: {
 				primary:
-					"bg-gradient-to-b from-blue-500 to-blue-700 hover:from-blue-400 hover:to-blue-600 text-white border-2 border-blue-400 shadow-blue-500/30",
+					"bg-gradient-to-b from-blue-600/90 to-blue-800/90 hover:from-blue-500/90 hover:to-blue-700/90 text-white border border-blue-500/50 hover:border-blue-400/70",
 				secondary:
-					"bg-gradient-to-b from-slate-500 to-slate-700 hover:from-slate-400 hover:to-slate-600 text-white border-2 border-slate-400 shadow-slate-500/30",
+					"bg-gradient-to-b from-gray-700/90 to-gray-900/90 hover:from-gray-600/90 hover:to-gray-800/90 text-white border border-gray-600/50 hover:border-gray-500/70",
 				success:
-					"bg-gradient-to-b from-green-500 to-green-700 hover:from-green-400 hover:to-green-600 text-white border-2 border-green-400 shadow-green-500/30",
+					"bg-gradient-to-b from-green-600/90 to-green-800/90 hover:from-green-500/90 hover:to-green-700/90 text-white border border-green-500/50 hover:border-green-400/70",
 				danger:
-					"bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 text-white border-2 border-red-400 shadow-red-500/30",
+					"bg-gradient-to-b from-red-600/90 to-red-800/90 hover:from-red-500/90 hover:to-red-700/90 text-white border border-red-500/50 hover:border-red-400/70",
 				legendary:
-					"bg-gradient-to-b from-amber-500 to-amber-700 hover:from-amber-400 hover:to-amber-600 text-white border-2 border-amber-400 shadow-amber-500/40",
+					"bg-gradient-to-b from-amber-600/90 to-amber-800/90 hover:from-amber-500/90 hover:to-amber-700/90 text-white border border-amber-500/50 hover:border-amber-400/70",
 			},
 			size: {
-				sm: "h-9 px-3 text-sm min-h-[36px] min-w-[44px]",
-				md: "h-11 px-4 text-base min-h-[44px] min-w-[44px]",
-				lg: "h-14 px-6 text-lg min-h-[56px] min-w-[56px]",
+				sm: "h-9 px-4 text-sm min-h-[36px] min-w-[44px]",
+				md: "h-11 px-5 text-base min-h-[44px] min-w-[44px]",
+				lg: "h-14 px-8 text-lg min-h-[56px] min-w-[56px]",
 			},
 		},
 		defaultVariants: {
@@ -74,11 +74,8 @@ const GameButton = forwardRef<HTMLButtonElement, GameButtonProps>(
 				onClick={handleClick}
 				{...props}
 			>
-				{/* 3D effect - top highlight */}
-				<div className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-md bg-gradient-to-b from-white/20 to-transparent" />
-
-				{/* 3D effect - bottom shadow */}
-				<div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 rounded-b-md bg-gradient-to-t from-black/20 to-transparent" />
+				{/* Subtle top highlight */}
+				<div className="pointer-events-none absolute inset-x-0 top-0 h-1/3 rounded-t-xl bg-gradient-to-b from-white/10 to-transparent" />
 
 				{/* Content */}
 				<span className="relative z-10 flex items-center justify-center gap-2">
@@ -90,9 +87,11 @@ const GameButton = forwardRef<HTMLButtonElement, GameButtonProps>(
 					{children}
 				</span>
 
-				{/* Legendary pulse effect */}
+				{/* Legendary shimmer effect */}
 				{variant === "legendary" && !disabled && !loading && (
-					<div className="pointer-events-none absolute inset-0 animate-pulse rounded-lg bg-gradient-to-r from-transparent via-amber-300/20 to-transparent" />
+					<div className="pointer-events-none absolute inset-0 overflow-hidden rounded-xl">
+						<div className="absolute inset-0 animate-pulse bg-gradient-to-r from-transparent via-amber-400/20 to-transparent" />
+					</div>
 				)}
 			</Button>
 		);
