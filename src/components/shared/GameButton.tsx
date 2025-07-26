@@ -5,6 +5,7 @@ import { Loader2 } from "lucide-react";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { forwardRef } from "react";
 import { Button } from "@/components/ui/button";
+import { soundEffects } from "@/lib/notifications";
 import { cn } from "@/lib/utils";
 
 const gameButtonVariants = cva(
@@ -45,14 +46,32 @@ export interface GameButtonProps
 
 const GameButton = forwardRef<HTMLButtonElement, GameButtonProps>(
 	(
-		{ className, variant, size, icon, loading, children, disabled, ...props },
+		{
+			className,
+			variant,
+			size,
+			icon,
+			loading,
+			children,
+			disabled,
+			onClick,
+			...props
+		},
 		ref,
 	) => {
+		const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+			if (!disabled && !loading) {
+				soundEffects.play("button", 0.3);
+			}
+			onClick?.(e);
+		};
+
 		return (
 			<Button
 				ref={ref}
 				disabled={disabled || loading}
 				className={cn(gameButtonVariants({ variant, size }), className)}
+				onClick={handleClick}
 				{...props}
 			>
 				{/* 3D effect - top highlight */}
