@@ -116,18 +116,29 @@ export async function saveMiniGameResult(
 	const supabase = await createClient();
 	const today = new Date().toISOString().split("T")[0];
 
+	// プレイ可能か再確認
+	const status = await checkMiniGameStatus(userId);
+	if (!status.canPlay) {
+		throw new Error("You have already played the mini game today!");
+	}
+
 	// トランザクション的な処理
 	try {
 		// 1. 日次活動記録を更新
 		const { error: activityError } = await supabase
 			.from("daily_activities")
-			.upsert({
-				user_id: userId,
-				activity_date: today,
-				mini_game_completed: true,
-				mini_game_score: result.score,
-				updated_at: new Date().toISOString(),
-			});
+			.upsert(
+				{
+					user_id: userId,
+					activity_date: today,
+					mini_game_completed: true,
+					mini_game_score: result.score,
+					updated_at: new Date().toISOString(),
+				},
+				{
+					onConflict: "user_id,activity_date",
+				},
+			);
 
 		if (activityError) throw activityError;
 
@@ -145,12 +156,17 @@ export async function saveMiniGameResult(
 
 		const { error: updateLevelError } = await supabase
 			.from("user_levels")
-			.upsert({
-				user_id: userId,
-				current_exp: newExp,
-				total_exp: newExp,
-				updated_at: new Date().toISOString(),
-			});
+			.upsert(
+				{
+					user_id: userId,
+					current_exp: newExp,
+					total_exp: newExp,
+					updated_at: new Date().toISOString(),
+				},
+				{
+					onConflict: "user_id",
+				},
+			);
 
 		if (updateLevelError) throw updateLevelError;
 
