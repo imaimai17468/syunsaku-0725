@@ -135,6 +135,33 @@ export type Database = {
 					},
 				];
 			};
+			rate_limits: {
+				Row: {
+					action_type: string;
+					attempt_count: number | null;
+					created_at: string | null;
+					id: string;
+					user_id: string;
+					window_start: string | null;
+				};
+				Insert: {
+					action_type: string;
+					attempt_count?: number | null;
+					created_at?: string | null;
+					id?: string;
+					user_id: string;
+					window_start?: string | null;
+				};
+				Update: {
+					action_type?: string;
+					attempt_count?: number | null;
+					created_at?: string | null;
+					id?: string;
+					user_id?: string;
+					window_start?: string | null;
+				};
+				Relationships: [];
+			};
 			reward_items: {
 				Row: {
 					created_at: string;
@@ -319,7 +346,10 @@ export type Database = {
 			[_ in never]: never;
 		};
 		Functions: {
-			[_ in never]: never;
+			check_daily_limit: {
+				Args: { p_user_id: string; p_activity_type: string };
+				Returns: boolean;
+			};
 		};
 		Enums: {
 			[_ in never]: never;
