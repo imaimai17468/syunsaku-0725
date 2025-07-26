@@ -1,21 +1,44 @@
-import { FileQuestion } from "lucide-react";
+import { Calendar, Home, Search } from "lucide-react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { GameButton } from "@/components/shared/GameButton";
+import { RPGCard } from "@/components/shared/RpgCard";
 
 export default function NotFound() {
 	return (
-		<div className="flex h-screen flex-col items-center justify-center gap-6">
-			<div className="flex flex-col items-center gap-4">
-				<FileQuestion className="h-16 w-16 text-muted-foreground" />
-				<h1 className="font-bold text-6xl">404</h1>
-				<h2 className="font-semibold text-2xl">Page Not Found</h2>
-				<p className="max-w-md text-center text-muted-foreground">
-					The page you're looking for doesn't exist or may have been moved.
-				</p>
-			</div>
-			<Button asChild>
-				<Link href="/">Return to Home</Link>
-			</Button>
+		<div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4">
+			<RPGCard className="max-w-md border-purple-500/30 bg-gradient-to-br from-purple-900/20 to-purple-800/20">
+				<div className="flex flex-col items-center text-center">
+					<div className="mb-4 rounded-full bg-purple-500/20 p-3">
+						<Search className="h-8 w-8 text-purple-400" />
+					</div>
+					<h1 className="mb-2 font-bold text-2xl text-purple-400">
+						404 - ページが見つかりません
+					</h1>
+					<p className="mb-6 text-slate-300">
+						お探しのページは存在しないか、移動した可能性があります。
+					</p>
+					<div className="space-y-3">
+						<Link href="/" className="block">
+							<GameButton
+								icon={<Home className="mr-2 h-4 w-4" />}
+								variant="primary"
+								className="w-full"
+							>
+								ホームに戻る
+							</GameButton>
+						</Link>
+						<Link href="/daily-login" className="block">
+							<GameButton
+								icon={<Calendar className="mr-2 h-4 w-4" />}
+								variant="secondary"
+								className="w-full"
+							>
+								デイリーログインへ
+							</GameButton>
+						</Link>
+					</div>
+				</div>
+			</RPGCard>
 		</div>
 	);
 }
