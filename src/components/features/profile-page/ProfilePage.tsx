@@ -6,6 +6,7 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import type { UserWithEmail } from "@/entities/user";
+import { SoundSettings } from "../settings/SoundSettings";
 import { ProfileForm } from "./profile-form/ProfileForm";
 
 type ProfilePageProps = {
@@ -48,6 +49,16 @@ export const ProfilePage = ({ user }: ProfilePageProps) => {
 								{new Date(user.createdAt).toLocaleDateString("ja-JP")}
 							</p>
 						</div>
+					</CardContent>
+				</Card>
+
+				<Card>
+					<CardHeader>
+						<CardTitle>Settings</CardTitle>
+						<CardDescription>Customize your experience</CardDescription>
+					</CardHeader>
+					<CardContent>
+						<SoundSettings />
 					</CardContent>
 				</Card>
 			</div>
