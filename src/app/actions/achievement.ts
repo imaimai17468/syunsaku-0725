@@ -10,25 +10,15 @@ import {
 } from "@/lib/achievement/achievement-service";
 import { collectUserStats } from "@/lib/achievement/user-stats-collector";
 import { createClient } from "@/lib/supabase/server";
-import { isDevelopment } from "@/utils/environment";
 
 // 実績の一覧を取得
 export async function getAchievements(): Promise<Achievement[]> {
-	if (isDevelopment()) {
-		// 開発環境ではデフォルトデータを返す
-		return DEFAULT_ACHIEVEMENTS.map((achievement, index) => ({
-			...achievement,
-			id: `dev-achievement-${index}`,
-			createdAt: new Date(),
-		}));
-	}
-
 	const supabase = await createClient();
 	const { data, error } = await supabase
 		.from("achievements")
 		.select("*")
 		.eq("is_active", true)
-		.order("sort_order");
+		.order("created_at");
 
 	if (error) {
 		console.error("Error fetching achievements:", error);
@@ -53,6 +43,15 @@ export async function getAchievements(): Promise<Achievement[]> {
 		createdAt: new Date(row.created_at),
 	}));
 
+	// データベースから取得できなかった場合はデフォルトデータを使用
+	if (!data || data.length === 0) {
+		return DEFAULT_ACHIEVEMENTS.map((achievement, index) => ({
+			...achievement,
+			id: `default-achievement-${index}`,
+			createdAt: new Date(),
+		}));
+	}
+
 	return achievements;
 }
 
@@ -60,10 +59,6 @@ export async function getAchievements(): Promise<Achievement[]> {
 export async function getUserAchievements(
 	userId: string,
 ): Promise<UserAchievement[]> {
-	if (isDevelopment()) {
-		return [];
-	}
-
 	const supabase = await createClient();
 	const { data, error } = await supabase
 		.from("user_achievements")
@@ -124,48 +119,41 @@ export async function checkAndUpdateAchievements(userId: string): Promise<{
 			// 新しく解除された実績
 			newlyUnlocked.push(achievement);
 
-			if (!isDevelopment()) {
-				// データベースに記録
-				const existingProgress = userAchievements.find(
-					(ua) => ua.achievementId === achievement.id,
-				);
+			// データベースに記録
+			const existingProgress = userAchievements.find(
+				(ua) => ua.achievementId === achievement.id,
+			);
 
-				if (existingProgress) {
-					// 既存の進捗を更新
-					await supabase
-						.from("user_achievements")
-						.update({
-							achieved_at: new Date().toISOString(),
-						})
-						.eq("id", existingProgress.id);
-				} else {
-					// 新規作成
-					await supabase.from("user_achievements").insert({
-						user_id: userId,
-						achievement_id: achievement.id,
+			if (existingProgress) {
+				// 既存の進捗を更新
+				await supabase
+					.from("user_achievements")
+					.update({
 						achieved_at: new Date().toISOString(),
-					});
-				}
+					})
+					.eq("id", existingProgress.id);
+			} else {
+				// 新規作成
+				await supabase.from("user_achievements").insert({
+					user_id: userId,
+					achievement_id: achievement.id,
+					achieved_at: new Date().toISOString(),
+				});
 			}
 		} else {
 			// 進捗のみ更新
-			if (!isDevelopment()) {
-				const existingProgress = userAchievements.find(
-					(ua) => ua.achievementId === achievement.id,
-				);
+			const existingProgress = userAchievements.find(
+				(ua) => ua.achievementId === achievement.id,
+			);
 
-				if (
-					existingProgress &&
-					existingProgress.progress !== progress.progress
-				) {
-					// 進捗のみの更新は現在のデータベーススキーマではサポートされていない
-				}
+			if (existingProgress && existingProgress.progress !== progress.progress) {
+				// 進捗のみの更新は現在のデータベーススキーマではサポートされていない
 			}
 		}
 	}
 
 	// 経験値を付与
-	if (newlyUnlocked.length > 0 && !isDevelopment()) {
+	if (newlyUnlocked.length > 0) {
 		const totalExp = newlyUnlocked.reduce(
 			(sum, achievement) => sum + achievement.rewardExp,
 			0,
@@ -204,7 +192,7 @@ export async function markAchievementsAsNotified(
 	_userId: string,
 	achievementIds: string[],
 ): Promise<void> {
-	if (isDevelopment() || achievementIds.length === 0) {
+	if (achievementIds.length === 0) {
 		return;
 	}
 

@@ -6,6 +6,9 @@ import { RPGCard } from "@/components/shared/RpgCard";
 import type { AchievementCategory as AchievementCategoryType } from "@/entities/achievement";
 import { createClient } from "@/lib/supabase/server";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function AchievementsPage() {
 	const supabase = await createClient();
 	const {
@@ -141,6 +144,18 @@ export default async function AchievementsPage() {
 							);
 						},
 					)}
+				</div>
+
+				{/* 実績チェックリンク */}
+				<div className="mt-12 text-center">
+					<p className="mb-4 text-gray-400">獲得できていない実績がある場合</p>
+					<a
+						href="/profile/check-achievements"
+						className="inline-flex items-center gap-2 rounded-lg bg-purple-600/20 px-6 py-3 font-medium text-purple-400 transition-colors hover:bg-purple-600/30"
+					>
+						<Trophy className="h-5 w-5" />
+						実績を再チェックする
+					</a>
 				</div>
 			</div>
 		</div>
