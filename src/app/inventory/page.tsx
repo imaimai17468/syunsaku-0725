@@ -12,8 +12,6 @@ import {
 import { InventoryFilter } from "@/components/features/inventory/InventoryFilter";
 import { InventoryItem } from "@/components/features/inventory/InventoryItem";
 import { RPGCard } from "@/components/shared/RpgCard";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { RewardItem } from "@/entities/reward-item";
@@ -112,68 +110,62 @@ export default function InventoryPage() {
 
 	return (
 		<div className="min-h-screen bg-black py-[10vh]">
-			<div className="mx-auto max-w-7xl space-y-6 px-4 sm:px-6 lg:px-8">
-				{/* Header */}
-				<RPGCard variant="epic" className="text-center">
-					<h1 className="mb-2 font-bold text-3xl text-white">
-						<Package className="mb-2 inline-block h-8 w-8" /> Inventory
+			<div className="mx-auto max-w-6xl px-4">
+				{/* ヒーローセクション */}
+				<div className="mb-12 text-center">
+					<div className="mb-6 flex justify-center">
+						<div className="relative">
+							<div className="absolute inset-0 animate-pulse rounded-full bg-gradient-to-r from-purple-600 to-pink-600 opacity-75 blur-xl" />
+							<Package className="relative h-24 w-24 text-white" />
+						</div>
+					</div>
+					<h1 className="mb-4 bg-gradient-to-b from-white to-gray-400 bg-clip-text font-bold text-5xl text-transparent">
+						インベントリ
 					</h1>
-					<p className="text-slate-300">
-						Manage your collected items and treasures
+					<p className="mx-auto max-w-2xl text-gray-400 text-lg">
+						獲得したアイテムと宝物を管理しよう
 					</p>
-				</RPGCard>
+				</div>
 
 				{/* Stats */}
 				{stats && (
 					<div className="grid gap-4 md:grid-cols-4">
-						<Card className="border-slate-600 bg-slate-800/50">
-							<CardHeader className="pb-2">
-								<CardTitle className="text-slate-300 text-sm">
-									Total Items
-								</CardTitle>
-							</CardHeader>
-							<CardContent>
-								<div className="font-bold text-2xl text-white">
-									{stats.totalItems}
-								</div>
-							</CardContent>
-						</Card>
-						<Card className="border-slate-600 bg-slate-800/50">
-							<CardHeader className="pb-2">
-								<CardTitle className="text-slate-300 text-sm">
-									Total Quantity
-								</CardTitle>
-							</CardHeader>
-							<CardContent>
-								<div className="font-bold text-2xl text-white">
-									{stats.totalQuantity}
-								</div>
-							</CardContent>
-						</Card>
-						<Card className="border-slate-600 bg-slate-800/50">
-							<CardHeader className="pb-2">
-								<CardTitle className="text-slate-300 text-sm">
-									Legendary Items
-								</CardTitle>
-							</CardHeader>
-							<CardContent>
-								<div className="font-bold text-2xl text-amber-400">
-									{stats.itemsByRarity.legendary}
-								</div>
-							</CardContent>
-						</Card>
-						<Card className="border-slate-600 bg-slate-800/50">
-							<CardHeader className="pb-2">
-								<CardTitle className="text-slate-300 text-sm">
-									Boost Items
-								</CardTitle>
-							</CardHeader>
-							<CardContent>
-								<div className="font-bold text-2xl text-blue-400">
-									{stats.itemsByType.boost}
-								</div>
-							</CardContent>
-						</Card>
+						<RPGCard className="text-center">
+							<div className="mb-2 flex justify-center">
+								<Package className="h-8 w-8 text-blue-500" />
+							</div>
+							<p className="font-bold text-2xl text-white">
+								{stats.totalItems}
+							</p>
+							<p className="text-gray-400 text-sm">総アイテム数</p>
+						</RPGCard>
+						<RPGCard className="text-center">
+							<div className="mb-2 flex justify-center">
+								<span className="text-2xl">📦</span>
+							</div>
+							<p className="font-bold text-2xl text-white">
+								{stats.totalQuantity}
+							</p>
+							<p className="text-gray-400 text-sm">総所持数</p>
+						</RPGCard>
+						<RPGCard className="text-center">
+							<div className="mb-2 flex justify-center">
+								<span className="text-2xl">⭐</span>
+							</div>
+							<p className="font-bold text-2xl text-amber-400">
+								{stats.itemsByRarity.legendary}
+							</p>
+							<p className="text-gray-400 text-sm">レジェンダリー</p>
+						</RPGCard>
+						<RPGCard className="text-center">
+							<div className="mb-2 flex justify-center">
+								<span className="text-2xl">🚀</span>
+							</div>
+							<p className="font-bold text-2xl text-blue-400">
+								{stats.itemsByType.boost}
+							</p>
+							<p className="text-gray-400 text-sm">ブーストアイテム</p>
+						</RPGCard>
 					</div>
 				)}
 
@@ -185,27 +177,30 @@ export default function InventoryPage() {
 						<TabsTrigger value="collectibles">Collectibles</TabsTrigger>
 					</TabsList>
 
-					<Card className="border-slate-600 bg-slate-800/50">
-						<CardHeader>
-							<CardTitle className="text-white">Filter Items</CardTitle>
-						</CardHeader>
-						<CardContent>
+					<RPGCard>
+						<div className="p-4">
+							<h3 className="mb-4 font-semibold text-lg text-white">
+								フィルター
+							</h3>
 							<InventoryFilter
 								onFilterChange={handleFilterChange}
 								stats={
 									stats?.itemsByRarity && stats?.itemsByType ? stats : undefined
 								}
 							/>
-						</CardContent>
-					</Card>
+						</div>
+					</RPGCard>
 
 					<TabsContent value="all" className="space-y-4">
 						{items.length === 0 ? (
-							<Alert className="border-slate-600 bg-slate-800/50">
-								<AlertDescription className="text-slate-300">
-									No items found. Complete daily activities to earn rewards!
-								</AlertDescription>
-							</Alert>
+							<RPGCard className="text-center">
+								<div className="p-8">
+									<Package className="mx-auto mb-4 h-16 w-16 text-gray-600" />
+									<p className="text-gray-400">
+										アイテムがありません。デイリー活動を完了して報酬を獲得しましょう！
+									</p>
+								</div>
+							</RPGCard>
 						) : (
 							<ScrollArea className="h-[600px]">
 								<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -226,11 +221,14 @@ export default function InventoryPage() {
 					<TabsContent value="usable" className="space-y-4">
 						{items.filter((item) => item.item.itemType === "boost").length ===
 						0 ? (
-							<Alert className="border-slate-600 bg-slate-800/50">
-								<AlertDescription className="text-slate-300">
-									No usable items found.
-								</AlertDescription>
-							</Alert>
+							<RPGCard className="text-center">
+								<div className="p-8">
+									<span className="mx-auto mb-4 block text-6xl">🚀</span>
+									<p className="text-gray-400">
+										使用可能なアイテムがありません。
+									</p>
+								</div>
+							</RPGCard>
 						) : (
 							<ScrollArea className="h-[600px]">
 								<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -253,11 +251,14 @@ export default function InventoryPage() {
 					<TabsContent value="collectibles" className="space-y-4">
 						{items.filter((item) => item.item.itemType === "cosmetic")
 							.length === 0 ? (
-							<Alert className="border-slate-600 bg-slate-800/50">
-								<AlertDescription className="text-slate-300">
-									No collectible items found.
-								</AlertDescription>
-							</Alert>
+							<RPGCard className="text-center">
+								<div className="p-8">
+									<span className="mx-auto mb-4 block text-6xl">💎</span>
+									<p className="text-gray-400">
+										コレクションアイテムがありません。
+									</p>
+								</div>
+							</RPGCard>
 						) : (
 							<ScrollArea className="h-[600px]">
 								<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
